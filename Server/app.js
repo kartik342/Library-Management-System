@@ -23,9 +23,9 @@ app.use(express.urlencoded({extended: true}))
 // console.log("Auth router:", authRouter);
 app.use("/api/v1/auth", authRouter) // https://localhost:4000/api/v1/auth AND later =>  https:localhost:4000/api/v1/auth
 
-app.get("/test", (req, res) => {
-    res.json({ message: "app test working" });
-});
+// app.get("/test", (req, res) => {
+//     res.json({ message: "app test working" });
+// });
  
 connectDB()
 

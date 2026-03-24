@@ -95,3 +95,37 @@ export const verifyOTP = catchAsyncErrors(async(req, res, next)=>{
         next(new ErrorHandler(error.message, 500))
     }
 })
+
+export const login = catchAsyncErrors(async(req, res, next)=>{
+
+    const {email, password} = req.body
+    if(!email || !password){
+        return next(new ErrorHandler("Please enter all fields", 400))
+    }
+
+    const user = await User.findOne({email, accountVerified: true}).select("+password") // only verified user can login
+    if(!user){
+        return next(new ErrorHandler("Invalid email or password", 400))
+    }
+    
+    const isPasswordMatched = await bcrypt.compare(password, user.password)
+    if(!isPasswordMatched){
+        return next(new ErrorHandler("Invalid email or password", 400))
+    }
+
+    sendToken(user, 200, "Login successful", res)
+});
+
+export const logout = catchAsyncErrors(async (req, res, next) => {
+  res.status(200)
+    .cookie("token", "", {
+      expires: new Date(0),
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    })
+    .json({
+      success: true,
+      message: "Logged out successfully",
+    })
+})
