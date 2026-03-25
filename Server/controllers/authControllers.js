@@ -5,6 +5,8 @@ import bcrypt from "bcrypt"
 import crypto from "crypto"
 import { sendVerificationCode } from "../utils/sendVerificationCode.js"
 import { sendToken } from "../utils/sendToken.js"
+import { sendEmail } from "../utils/sendEmail.js"
+import { generateForgotPasswordEmailTemplate } from "../utils/emailTemplate.js"
 
 export const register = catchAsyncErrors(async(req, res, next)=>{
     try{
@@ -128,4 +130,50 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
       success: true,
       message: "Logged out successfully",
     })
+})
+
+export const getUser = catchAsyncErrors(async(req, res, next)=>{
+    const user = req.user
+    res.status(200).json({
+        success: true,
+        user,
+    })
+})
+
+export const forgotPassword = catchAsyncErrors(async(req, res, next)=>{
+    if(!req.body.email){
+        return next(new ErrorHandler("Email is required", 400))
+    }
+    const user = await User.findOne({
+        email: req.body.email,
+        accountVerified: true
+    })
+    if(!user){
+        return next(new ErrorHandler("Invalid email", 400))
+    }   
+
+    const resetToken = user.getResetPasswordToken()
+    await user.save({validateBeforeSave: false}) // validateBeforeSave means do not validate the fields before saving, we are only modifying resetPasswordToken and resetPasswordExpire fields, so we can skip validation for other fields
+
+    const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`
+    // Here you would typically send an email with the resetPasswordUrl to the user. For this example, we'll just return the URL in the response.
+
+    const message = generateForgotPasswordEmailTemplate(resetPasswordUrl)
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "BookWorm Library Management System - Password Reset",
+            message,
+        })
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email} successfully`,
+        })
+    } catch (error) {
+        user.resetPasswordToken = undefined
+        user.resetPasswordExpire = undefined
+        await user.save({validateBeforeSave: false})
+        return next(new ErrorHandler(error.message, 500))
+    }
 })
