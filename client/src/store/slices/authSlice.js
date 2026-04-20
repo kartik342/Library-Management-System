@@ -8,7 +8,7 @@ export const authSlice = createSlice({
     initialState: {
         user: null,
         loading: false,
-        error: null,
+        error: null, 
         message: null,
         isAuthenticated: false,
     },
