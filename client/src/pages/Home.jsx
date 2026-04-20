@@ -33,7 +33,8 @@ const Home = () => {
     <SideBar 
       isSideBarOpen={isSidebarOpen} 
       setIsSideBarOpen={setIsSidebarOpen} 
-      setSelectedComponent={setSelectedComponent}/>
+      setSelectedComponent={setSelectedComponent}
+    />
 
     {/* immediately invoked function to render the selected component */}
 
@@ -57,7 +58,7 @@ const Home = () => {
             }
             break;
 
-          case "Catalog":
+          case "Users":
             if(user?.role === "Admin") {
               return <Users/>
             }
