@@ -200,11 +200,10 @@ export const logout = () => async (dispatch) => {
     })
     .then(res => {
         dispatch(authSlice.actions.logoutSuccess( res.data.message ));
-        dispatch(authSlice.actions.resetAuthSlice());
+        // dispatch(authSlice.actions.resetAuthSlice());
     })
-    .catch(error => {
-        dispatch(authSlice.actions.logoutFailed( error.response.data.error ));
-    });
+    .catch(error => {dispatch(authSlice.actions.logoutFailed(error.response?.data?.message || error.message));
+});
 };
 
 export const getUser = () => async (dispatch) => {

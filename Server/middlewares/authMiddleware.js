@@ -4,32 +4,54 @@ import jwt from "jsonwebtoken"
 import { User } from "../models/userModel.js";
 
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
-  let token
-
-  if (req.cookies && req.cookies.token && req.cookies.token !== "null" && req.cookies.token !== "") {
-    token = req.cookies.token
-  } else if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1]
-  }
+  const { token } = req.cookies;
 
   if (!token) {
-    return next(new ErrorHandler("Please login to access", 401))
+    return next(new ErrorHandler("User is not authenticated.", 400));
   }
 
-  try {
-    const decodedData = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = await User.findById(decodedData.id)
-    if (!req.user) {
-      return next(new ErrorHandler("Please login to access", 401))
-    }
-    next()
-  } catch (error) {
-    return next(new ErrorHandler("Please login to access", 401))
-  }
-})
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  console.log(decoded);
+
+  req.user = await User.findById(decoded.id);
+
+  next();
+});
+// export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
+//   let token 
+
+//   console.log("Cookies:", req.cookies);
+//   console.log("Auth header:", req.headers.authorization);
+//   if (req.cookies && req.cookies.token && req.cookies.token !== "null" && req.cookies.token !== "") {
+//     token = req.cookies.token
+//   } else if (
+//     req.headers.authorization &&
+//     req.headers.authorization.startsWith("Bearer")
+//   ) {
+//     token = req.headers.authorization.split(" ")[1]
+//   }
+
+//   // if (!req.cookies.token) {
+//   // return res.status(200).json({
+//   //   success: false,
+//   //   message: "User is not authenticated"
+//   // });
+// // }
+//   if (!token) {
+//     return next(new ErrorHandler("Please login to access", 401))
+//   }
+
+//   try {
+//     const decodedData = jwt.verify(token, process.env.JWT_SECRET)
+//     req.user = await User.findById(decodedData.id)
+//     if (!req.user) {
+//       return next(new ErrorHandler("Please login to access", 401))
+//     }
+//     next()
+//   } catch (error) {
+//     return next(new ErrorHandler("Please login to access", 401))
+//   }
+// })
 
 export const isAuthorized = (...roles) => {
   return (req, res, next) => {

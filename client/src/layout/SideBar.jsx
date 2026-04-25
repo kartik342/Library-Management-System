@@ -10,7 +10,7 @@ import usersIcon from "../assets/people.png";
 import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify"
-import { resetAuthSlice } from "../store/slices/authSlice";
+import { logout, resetAuthSlice } from "../store/slices/authSlice";
 import { toggleAddNewAdminPopup } from "../store/slices/popupSlice";
 
 const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
@@ -129,7 +129,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
 
         <div className="px-6 py-4">
 
-              <button className="py-2 font-medium text-center bg-transparent rounded-md hover:cursor-pointer flex items-center justify-center space-x-5 mx-auto w-fit">
+              <button className="py-2 font-medium text-center bg-transparent rounded-md hover:cursor-pointer flex items-center justify-center space-x-5 mx-auto w-fit" onClick={handleLogout}>
                 <img src={logoutIcon} alt="icon" />
                 <span>Logout</span>
               </button>
