@@ -18,22 +18,22 @@ const OTP = () => {
   
   const handleOtpVerification = (e) =>{
     e.preventDefault();
-    useDispatch(otpVerification(email, otp))
+    dispatch(otpVerification(email, otp))
   }
 
   useEffect(()=>{
-      if(message) {
-        toast.success(message);
-      }
+      // if(message) {
+      //   toast.success(message);
+      // }
       if(error) {
         toast.error(error);
         dispatch(resetAuthSlice ());
       }
-    }, [loading, error, isAuthenticated, dispatch]);
+  }, [loading, error, message, isAuthenticated, dispatch]);
   
-    if(isAuthenticated) {
-      return <Navigate to={"/"}/>;
-    }
+  if(isAuthenticated) {
+    return <Navigate to={"/"}/>;
+  }
 
 
   return <>
@@ -43,7 +43,7 @@ const OTP = () => {
       {/* LEFT SIDE  */}
       <div className="w-full md:w-1/2 flex justify-center items-center bg-white p-8 relative">
         
-        <Link to='/login' className="border-2 border-black rounded-3xl font-bold w-52 py-2 px-4 fixed top-10 -left-28 hover:bg-black hover:text-white transition duration-300 text-end">Back</Link>
+        <Link to='/register' className="border-2 border-black rounded-3xl font-bold w-52 py-2 px-4 fixed top-10 -left-28 hover:bg-black hover:text-white transition duration-300 text-end">Back</Link>
 
          <div className="max-w-sm w-full">
           <div className="flex justify-center mb-12">
@@ -70,7 +70,7 @@ const OTP = () => {
                 className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
               />
 
-              <button type="submit" className="border-2 border-black rounded-lg mt-5 w-full font-semibold bg-black text-white py-2 hover:bg-white hover:text-black">Verify</button>
+              <button type="submit" className="border-2 border-black rounded-lg mt-5 w-full font-semibold bg-black text-white py-2 hover:bg-white hover:text-black transition ">Verify</button>
 
             </div>
           </form>
@@ -81,8 +81,18 @@ const OTP = () => {
      
 
       {/* RIGHT SIDE  */}
-      <div>
+      <div className="hidden w-full md:w-1/2 bg-black text-white md:flex flex-col items-center justify-center p-8 rounded-tl-[90px] rounded-bl-[90px]">
+        <div className="text-center h-[400px]">
+          <div className="flex justify-center mb-12">
+            
+            <img src={logo_with_title} alt="logo_with_title" className="mb-12 h-44 w-auto"/>
 
+          </div>
+
+          <p className="text-gray-300 mb-12">New to our Platform? Sign Up Now</p>
+          <Link to='/register' className="border-2 border-white rounded-lg mt-5 w-full font-semibold bg-black text-white py-2 px-8 hover:bg-white hover:text-black transition">SIGN UP</Link>
+
+        </div>
       </div>
     </div>
   

@@ -11,7 +11,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify"
 import { logout, resetAuthSlice } from "../store/slices/authSlice";
-import { toggleAddNewAdminPopup } from "../store/slices/popupSlice";
+import { toggleAddNewAdminPopup, toggleSettingPopup } from "../store/slices/popupSlice";
 import AddNewAdmin from "../popups/AddNewAdmin";
 
 const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
@@ -120,7 +120,7 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
           }
 
           <button className="w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2"
-                  // onClick={()=>setSelectedComponent("Catalog")}
+                  onClick={()=>dispatch(toggleSettingPopup())}
           >
             <img src={settingIcon} alt="icon" />
             <span>Update Credentials</span>

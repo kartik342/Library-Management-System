@@ -174,7 +174,7 @@ export const otpVerification = (email, otp) => async (dispatch) => {
     }).then(res => {
         dispatch(authSlice.actions.otpVerificationSuccess( res.data ));
     }).catch(error => {
-        dispatch(authSlice.actions.otpVerificationFailed( error.response.data.error ));
+        dispatch(authSlice.actions.otpVerificationFailed( error.response?.data?.message || "Invalid OTP" ));
     });
 };
 

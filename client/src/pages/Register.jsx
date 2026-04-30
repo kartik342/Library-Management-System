@@ -4,7 +4,7 @@ import logo_with_title from "../assets/logo-with-title.png";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { register } from "../store/slices/authSlice";
+import { register, resetAuthSlice } from "../store/slices/authSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -39,6 +39,8 @@ const Register = () => {
 
   useEffect(()=>{
     if(message) {
+      toast.success(message);
+      dispatch(resetAuthSlice());
       navigateTo(`/otp-verification/${email}`);
     }
     if(error) {

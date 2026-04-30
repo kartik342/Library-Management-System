@@ -91,7 +91,7 @@ export const verifyOTP = catchAsyncErrors(async(req, res, next)=>{
         user.verificationCodeExpire = undefined
         await user.save({validateModifiedOnly: true}) // validateModifiedOnly means only validate the fields that are modified, in this case we are only modifying accountVerified, verificationCode and verificationCodeExpire fields, so only these fields will be validated, it will improve performance
 
-        sendToken(user, 200, "User verified successfully", res) // after successful verification, we can send token to user and log them in
+        sendToken(user, 200, "Account verified successfully", res) // after successful verification, we can send token to user and log them in
 
     } 
     catch (error) {
