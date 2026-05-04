@@ -61,7 +61,6 @@ const OTP = () => {
           <form onSubmit={handleOtpVerification}>
 
             <div className="mb-4">
-
               <input 
                 type="number" 
                 value={otp} 
@@ -69,10 +68,10 @@ const OTP = () => {
                 placeholder="OTP"
                 className="w-full px-4 py-3 border border-black rounded-md focus:outline-none"
               />
-
-              <button type="submit" className="border-2 border-black rounded-lg mt-5 w-full font-semibold bg-black text-white py-2 hover:bg-white hover:text-black transition ">Verify</button>
-
             </div>
+
+            <button type="submit" className="border-2 border-black rounded-lg mt-5 w-full font-semibold bg-black text-white py-2 hover:bg-white hover:text-black transition ">Verify</button>
+
           </form>
         </div>
 
