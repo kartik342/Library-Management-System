@@ -3,11 +3,13 @@ import settingIcon from "../assets/setting.png";
 import userIcon from "../assets/user.png";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSettingPopup } from "../store/slices/popupSlice";
+import { useState } from "react";
 
 const Header = () => {
 
   const dispatch = useDispatch();
   const {user} = useSelector((state) => state.auth);
+  // console.log("user in header", user);
 
   const[currentTime, setCurrentTime] = useState("");
   const[currentDate, setCurrentDate] = useState("");
@@ -34,7 +36,7 @@ const Header = () => {
 
   return <>
     
-    <header className="absolute top-0 bg-white w-full py-4 px-6 left-0 shadow-md flex justify-between items-center">
+    <header className="absolute top-0 left-0 md:left-64 right-0 bg-white py-4 px-6 shadow-md flex justify-between items-center">      
       
       {/* Left Side  */}
       <div className="flex items-center gap-2">
@@ -45,8 +47,8 @@ const Header = () => {
 
           <span className="text-sm font-medium sm:text-lg lg:text-xl sm:font-semibold">{user?.name}</span>
           <span className="text-sm font-medium sm:text-lg sm:font-semibold">{user?.role}</span>
-          {/* <span>Kartik</span> */}
-          {/* <span>User</span> */}
+          {/* <span>Kartik</span>
+          <span>User</span> */}
         
         </div>
 

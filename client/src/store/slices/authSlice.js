@@ -84,7 +84,7 @@ export const authSlice = createSlice({
         getUserSuccess: (state, action) => {
             state.loading = false;
             state.user = action.payload.user;
-            state.isAuthenticated = false;
+            state.isAuthenticated = true;
         },
         getUserFailed: (state) => {
             state.loading = false;
