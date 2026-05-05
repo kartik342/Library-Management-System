@@ -99,11 +99,11 @@ export const authSlice = createSlice({
         },
         forgotPasswordSuccess: (state, action) => {
             state.loading = false;
-            state.user = action.payload;
+            state.message = action.payload.message;
         },
-        forgotPasswordFailed: (state) => {
+        forgotPasswordFailed: (state, action) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload;
         },
 
         resetPasswordRequest: (state) => {
@@ -117,9 +117,9 @@ export const authSlice = createSlice({
             state.user = action.payload.user;
             state.isAuthenticated = true;
         },
-        resetPasswordFailed: (state) => {
+        resetPasswordFailed: (state, action) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload;
         },
 
         updatePasswordRequest: (state) => {

@@ -6,11 +6,15 @@ import { User } from "../models/userModel.js";
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
+  // console.log("Token from cookies:", token);
   if (!token) {
     return next(new ErrorHandler("User is not authenticated.", 400));
   }
+  // if (!token) {
+  //   return next();
+  // }
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
   console.log(decoded);
 
   req.user = await User.findById(decoded.id);
