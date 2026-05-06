@@ -70,119 +70,207 @@ const BookManagement = () => {
     return book.title.toLowerCase().includes(searchedKeyword) || book.author.toLowerCase().includes(searchedKeyword)
   });
 
-  return <>
-    
-    <main className="flex-1 p-6 pt-28">
+  return (
+  <>
+    <main className="flex-1 p-3 sm:p-4 pt-20 sm:pt-24 bg-[#f5f5f5] min-h-screen">
 
-      <Header></Header>
+      <Header />
 
-      {/* Sub Header */}
-      <header className="flex flex-col gap-3 md:flex-row md:justify-between md:items-center ">
-        
-        <h2 className="text-xl font-medium md:text-2xl md:font-semibold">
-          {user && user.role === 'Admin' ? "Book Management" : "Books"}
+      {/* SUB HEADER */}
+      <header className="flex flex-col gap-3 lg:flex-row lg:justify-between lg:items-center">
+
+        <h2 className="text-lg sm:text-xl xl:text-2xl font-semibold">
+          {user && user.role === "Admin"
+            ? "Book Management"
+            : "Books"}
         </h2>
 
-        <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
-          {
-            isAuthenticated && user.role === 'Admin' && (
-              <button 
-                onClick={()=> dispatch(toggleAddBookPopup())} 
-                className="relative pl-14 w-full sm:w-52 gap-4 flex justify-center items-center py-2 px-4 bg-black text-white rounded-md hover:bg-gray-800 "
-              >
-                <span className="bg-white flex justify-center items-center overflow-hidden rounded-full text-black w-[25px] h-[25px] text-[27px] absolute left-5">+</span>
-                Add Book
-              </button>
-            )
-          }
+        <div className="flex flex-col sm:flex-row gap-3">
 
-          <input 
-            type="text" 
-            placeholder="Search books..." 
+          {/* ADD BOOK BUTTON */}
+          {isAuthenticated && user.role === "Admin" && (
+            <button
+              onClick={() => dispatch(toggleAddBookPopup())}
+              className="relative pl-12 w-full sm:w-44 flex justify-center items-center py-2.5 px-4 bg-black text-white rounded-xl hover:bg-gray-800 transition duration-300 shadow-sm"
+            >
+
+              <span className="bg-white flex justify-center items-center rounded-full text-black w-5 h-5 text-lg absolute left-4">
+                +
+              </span>
+
+              <span className="text-sm sm:text-base">
+                Add Book
+              </span>
+
+            </button>
+          )}
+
+          {/* SEARCH */}
+          <input
+            type="text"
+            placeholder="Search books..."
             value={searchedKeyword}
             onChange={handleSearch}
-            className="sm:w-52 border p-2 pl-4 border-gray-300 rounded-md"
+            className="w-full sm:w-52 border border-gray-300 bg-white p-2.5 pl-4 rounded-xl outline-none focus:ring-2 focus:ring-black/10 text-sm"
           />
+
         </div>
+
       </header>
 
-      {/* Table */}
+      {/* TABLE SECTION */}
+      {books && books.length > 0 ? (
 
-      {
-        books && books.length > 0 ? (
-          <div className="mt-6 overflow-auto bg-white rounded-md shadow-lg">
+        <div className="mt-4 bg-white rounded-2xl shadow-sm overflow-hidden">
 
-            <table className="min-w-full border-collapse">
+          <div className="overflow-x-auto">
 
+            <table className="min-w-full border-collapse text-sm sm:text-base">
+
+              {/* TABLE HEAD */}
               <thead>
-                <tr className="bg-gray-200">
-                  <th className="px-4 py-2 text-left">ID</th>
-                  <th className="px-4 py-2 text-left">Name</th>
-                  <th className="px-4 py-2 text-left">Author</th>
-                  {
-                    isAuthenticated && user.role === 'Admin' && (
-                      <th className="px-4 py-2 text-left">Quantity</th>
-                    )
-                  }
-                  <th className="px-4 py-2 text-left">Availability</th>
-                  {
-                    isAuthenticated && user.role === 'Admin' && (
-                      <th className="px-4 py-2 text-center">Record Book</th>
-                    )
-                  }
+
+                <tr className="bg-gray-100 border-b border-gray-200">
+
+                  <th className="px-4 py-3 text-left font-semibold">
+                    ID
+                  </th>
+
+                  <th className="px-4 py-3 text-left font-semibold">
+                    Name
+                  </th>
+
+                  <th className="px-4 py-3 text-left font-semibold">
+                    Author
+                  </th>
+
+                  {isAuthenticated && user.role === "Admin" && (
+                    <th className="px-4 py-3 text-left font-semibold">
+                      Quantity
+                    </th>
+                  )}
+
+                  <th className="px-4 py-3 text-left font-semibold">
+                    Availability
+                  </th>
+
+                  {isAuthenticated && user.role === "Admin" && (
+                    <th className="px-4 py-3 text-center font-semibold">
+                      Actions
+                    </th>
+                  )}
+
                 </tr>
+
               </thead>
 
+              {/* TABLE BODY */}
               <tbody>
-                {
-                  searchedBooks.map((book, index)=>(
-                    <tr 
-                      key={book._id} 
-                      className={(index+1) %2 === 0 ? "bg-gray-200" : "bg-white"} 
-                      // onClick={() => openReadPopup(book._id)}
-                    >
-                      <td className="px-4 py-2">{index+1}</td>
-                      <td className="px-4 py-2">{book.title}</td>
-                      <td className="px-4 py-2">{book.author}</td>
-                      {
-                        isAuthenticated && user.role === 'Admin' && (
-                          <td className="px-4 py-2">{book.quantity}</td>
-                        )
-                      }
-                      <td className="px-4 py-2">{book.availability ? "Available" : "Not Available"}</td>
-                      {
-                        isAuthenticated && user.role === 'Admin' && (
-                          <td className="px-4 py-2 flex space-x-2 my-3 justify-center">
-                            <BookA 
-                              className="cursor-pointer" 
-                              onClick={() => openReadPopup(book._id)}>
-                            </BookA>
 
-                            <NotebookPen 
-                              className="cursor-pointer" 
-                              onClick={() => openRecordBookPopup(book._id)}>
-                            </NotebookPen> 
-                          </td>
-                        )
-                      }
-                    </tr>
-                  ))
-                }
+                {searchedBooks.map((book, index) => (
+
+                  <tr
+                    key={book._id}
+                    className={`border-b border-gray-100 transition duration-200 hover:bg-gray-50 ${
+                      (index + 1) % 2 === 0
+                        ? "bg-gray-50"
+                        : "bg-white"
+                    }`}
+                  >
+
+                    <td className="px-4 py-3">
+                      {index + 1}
+                    </td>
+
+                    <td className="px-4 py-3 font-medium">
+                      {book.title}
+                    </td>
+
+                    <td className="px-4 py-3">
+                      {book.author}
+                    </td>
+
+                    {isAuthenticated && user.role === "Admin" && (
+                      <td className="px-4 py-3">
+                        {book.quantity}
+                      </td>
+                    )}
+
+                    <td className="px-4 py-3">
+
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
+                          book.availability
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {book.availability
+                          ? "Available"
+                          : "Not Available"}
+                      </span>
+
+                    </td>
+
+                    {isAuthenticated && user.role === "Admin" && (
+
+                      <td className="px-4 py-3">
+
+                        <div className="flex justify-center items-center gap-4">
+
+                          <button
+                            onClick={() => openReadPopup(book._id)}
+                            className="p-2 rounded-lg hover:bg-gray-200 transition"
+                          >
+                            <BookA className="w-5 h-5 cursor-pointer" />
+                          </button>
+
+                          <button
+                            onClick={() => openRecordBookPopup(book._id)}
+                            className="p-2 rounded-lg hover:bg-gray-200 transition"
+                          >
+                            <NotebookPen className="w-5 h-5 cursor-pointer" />
+                          </button>
+
+                        </div>
+
+                      </td>
+
+                    )}
+
+                  </tr>
+
+                ))}
+
               </tbody>
+
             </table>
+
           </div>
-        ) : 
-        (
-          <h3 className="text-3xl mt-5 font-medium">No books found in Library!</h3>
-        )
-      }
-  
+
+        </div>
+
+      ) : (
+
+        <div className="bg-white rounded-2xl shadow-sm mt-5 p-8 text-center">
+
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-700">
+            No books found in Library!
+          </h3>
+
+        </div>
+
+      )}
+
     </main>
 
-    {addBookPopup && <AddBookPopup/>}
-    {readBookPopup && <ReadBookPopup book={readBookData}/>}
-    {recordBookPopup && <RecordBookPopup bookId={borrowBookId}/>}
-  </>;
+    {addBookPopup && <AddBookPopup />}
+    {readBookPopup && <ReadBookPopup book={readBookData} />}
+    {recordBookPopup && (
+      <RecordBookPopup bookId={borrowBookId} />
+    )}
+  </>
+);
 };
 
 export default BookManagement;

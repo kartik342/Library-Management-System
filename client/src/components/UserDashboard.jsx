@@ -75,70 +75,86 @@ const UserDashboard = () => {
 
   return (
   <>
-    <main className="flex-1 p-4 sm:p-6 pt-24 sm:pt-28">
+    <main className="flex-1 p-3 sm:p-4 pt-20 sm:pt-24 bg-[#f5f5f5] min-h-screen overflow-hidden">
+
       <Header />
 
-      <div className="flex flex-col-reverse xl:flex-row gap-6">
+      <div className="flex flex-col-reverse xl:flex-row gap-3">
 
-        {/* Left Side */}
-        <div className="flex flex-[4] flex-col gap-6 xl:min-h-[85vh]">
+        {/* LEFT SIDE */}
+        <div className="flex flex-[4] flex-col gap-3 xl:min-h-[85vh]">
 
-          <div className="flex flex-col gap-6">
+          {/* TOP CARDS */}
+          <div className="flex flex-col gap-3">
 
             {/* Borrowed Books */}
-            <div className="flex items-center gap-4 bg-white p-4 sm:p-5 min-h-[110px] rounded-xl transition hover:shadow-inner duration-300">
-              
-              <span className="w-[2px] h-16 sm:h-20 bg-black"></span>
+            <div className="flex items-center gap-4 bg-white p-3 min-h-[85px] rounded-2xl shadow-sm transition hover:shadow-inner duration-300">
 
-              <span className="bg-gray-200 w-12 h-12 sm:w-14 sm:h-14 rounded-lg flex items-center justify-center shrink-0">
+              <span className="w-[2px] h-14 bg-black"></span>
+
+              <span className="bg-gray-200 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                 <img
                   src={bookIcon}
                   alt="book-icon"
-                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
               </span>
 
-              <p className="text-base sm:text-lg xl:text-xl font-semibold">
-                Your Borrowed Book List
-              </p>
+              <div>
+                <h3 className="text-xl font-bold">
+                  {totalBorrowedBooks}
+                </h3>
+
+                <p className="text-sm text-gray-500">
+                  Borrowed Books
+                </p>
+              </div>
+
             </div>
 
             {/* Returned Books */}
-            <div className="flex items-center gap-4 bg-white p-4 sm:p-5 min-h-[110px] rounded-xl transition hover:shadow-inner duration-300">
-              
-              <span className="w-[2px] h-16 sm:h-20 bg-black"></span>
+            <div className="flex items-center gap-4 bg-white p-3 min-h-[85px] rounded-2xl shadow-sm transition hover:shadow-inner duration-300">
 
-              <span className="bg-gray-200 w-12 h-12 sm:w-14 sm:h-14 rounded-lg flex items-center justify-center shrink-0">
+              <span className="w-[2px] h-14 bg-black"></span>
+
+              <span className="bg-gray-200 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                 <img
                   src={returnIcon}
                   alt="return-icon"
-                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
               </span>
 
-              <p className="text-base sm:text-lg xl:text-xl font-semibold">
-                Your Returned Book List
-              </p>
+              <div>
+                <h3 className="text-xl font-bold">
+                  {totalReturnedBooks}
+                </h3>
+
+                <p className="text-sm text-gray-500">
+                  Returned Books
+                </p>
+              </div>
+
             </div>
 
           </div>
 
           {/* Browse Section */}
-          <div className="flex flex-col lg:flex-row items-center gap-6">
+          <div className="flex flex-col lg:flex-row items-center gap-3">
 
-            <div className="flex-1 flex items-center gap-4 bg-white p-4 sm:p-5 min-h-[110px] rounded-xl transition hover:shadow-inner duration-300 w-full">
+            <div className="flex-1 flex items-center gap-4 bg-white p-3 min-h-[90px] rounded-2xl shadow-sm transition hover:shadow-inner duration-300 w-full">
 
-              <span className="w-[2px] h-16 sm:h-20 bg-black"></span>
+              <span className="w-[2px] h-14 bg-black"></span>
 
-              <span className="bg-gray-200 w-14 h-14 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center shrink-0">
+              <span className="bg-gray-200 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
                 <img
                   src={browseIcon}
                   alt="browse-icon"
-                  className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+                  className="w-6 h-6 object-contain"
                 />
               </span>
 
-              <p className="text-base sm:text-lg xl:text-xl font-semibold">
+              <p className="text-base sm:text-lg font-semibold">
                 Let's browse books inventory
               </p>
 
@@ -147,49 +163,59 @@ const UserDashboard = () => {
             <img
               src={logo_with_title}
               alt="logo"
-              className="hidden lg:block w-52 xl:w-72 object-contain shrink-0"
+              className="hidden lg:block w-44 xl:w-56 object-contain shrink-0"
             />
+
           </div>
 
-          {/* Bottom Quote Box */}
-          <div className="bg-white p-6 sm:p-7 min-h-[180px] font-semibold relative flex justify-center items-center rounded-2xl">
+          {/* QUOTE SECTION */}
+          <div className="bg-white p-5 sm:p-6 min-h-[170px] rounded-2xl shadow-sm flex flex-col justify-between overflow-hidden">
 
-            <h4 className="text-lg sm:text-xl xl:text-3xl 2xl:text-4xl text-center">
-              
-            </h4>
+            <h2 className="text-lg sm:text-xl xl:text-3xl font-semibold leading-snug max-w-[850px]">
+              "Reading empowers the mind, sharpens perspective and opens the door to continuous growth and imagination."
+            </h2>
 
-            <p className="text-gray-700 text-sm sm:text-base absolute right-5 sm:right-8 bottom-4">
-              ~ Bookworm Team
+            <p className="text-right text-gray-700 text-sm sm:text-base mt-4">
+              ~ BookWorm Team
             </p>
 
           </div>
 
         </div>
 
-        {/* Right Side */}
-        <div className="flex-[2] flex flex-col lg:flex-row xl:flex-col gap-6 xl:gap-10 py-2">
+        {/* RIGHT SIDE */}
+        <div className="flex-[2] flex flex-col gap-3 py-1">
 
-          {/* Pie Chart */}
-          <div className="flex justify-center items-center w-full min-w-[320px] bg-white rounded-2xl p-4 sm:p-6 overflow-x-auto">
+          {/* PIE CHART */}
+          <div className="bg-white rounded-2xl p-4 flex justify-center items-center shadow-sm min-h-[290px] overflow-hidden">
+
             <Pie
               data={data}
-              options={{ cutout: 0 }}
-              className="w-[260px] sm:w-[320px] md:w-[350px] shrink-0"
+              options={{
+                cutout: 0,
+                plugins: {
+                  legend: {
+                    position: "top",
+                  },
+                },
+              }}
+              className="w-[180px] sm:w-[240px] md:w-[300px] shrink-0"
             />
+
           </div>
 
-          {/* Stats */}
-          <div className="flex items-center bg-white p-5 sm:p-6 gap-5 rounded-2xl w-full">
+          {/* STATS */}
+          <div className="bg-white rounded-2xl p-3 flex items-center gap-4 shadow-sm w-full">
 
             <img
               src={logo}
               alt="logo"
-              className="h-12 sm:h-16 object-contain"
+              className="h-10 sm:h-12 object-contain"
             />
 
             <span className="w-[2px] bg-black self-stretch"></span>
 
-            <div className="flex flex-col gap-4 text-sm sm:text-base">
+            <div className="flex flex-col gap-2 text-sm">
 
               <p className="flex items-center gap-3">
                 <span className="w-3 h-3 rounded-full bg-[#3D3E3E]"></span>
@@ -208,6 +234,7 @@ const UserDashboard = () => {
         </div>
 
       </div>
+
     </main>
   </>
 );

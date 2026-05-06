@@ -109,13 +109,6 @@ const SideBar = ({ isSideBarOpen, setIsSideBarOpen, setSelectedComponent }) => {
                     <span>My Borrowed Books</span>
                   </button>
 
-
-                  <button className="w-full py-2 font-medium bg-transparent rounded-md hover:cursor-pointer flex items-center space-x-2"
-                  onClick={()=>setSelectedComponent("Catalog")}
-                  >
-                    <img src={catalogIcon} alt="icon" />
-                    <span>Catalog</span>
-                  </button>
               </>
             )
           }

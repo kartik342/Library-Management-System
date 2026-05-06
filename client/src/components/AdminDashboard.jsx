@@ -76,36 +76,191 @@ const AdminDashboard = () => {
   };
 
 
-  return <>
+  return (
+  <>
+    <main className="flex-1 p-3 sm:p-4 pt-20 sm:pt-24 bg-[#f5f5f5] min-h-screen overflow-hidden">
 
-    <main className="flex-1 p-6 pt-28">
+      <Header />
 
-      <Header/>
+      <div className="flex flex-col xl:flex-row gap-3">
 
-      <div className="flex flex-col-reverse xl:flex-row">
+        {/* LEFT SIDE */}
+        <div className="flex-[2] flex flex-col gap-3">
 
-        {/* Left Side */}
-        
-        <div className="flex-[2] flex-col gap-7 lg:flex-row lg:items-center xl:flex-col justify-between xl:gap-20 py-5">
+          {/* PIE CHART */}
+          <div className="bg-white rounded-2xl p-4 flex justify-center items-center shadow-sm min-h-[290px] overflow-hidden">
 
-          <div className="flex-[4] flex items-center w-full content-center">
-            <Pie 
-              data={data} 
-              options={{cutout:0}} 
-              className="mx-auto lg-mx-0 w-full h-auto"/>
+            <Pie
+              data={data}
+              options={{
+                cutout: 0,
+                plugins: {
+                  legend: {
+                    position: "top",
+                  },
+                },
+              }}
+              className="w-[180px] sm:w-[240px] md:w-[300px] shrink-0"
+            />
+
           </div>
 
-          <div className="flex items-center w-full p-8 sm:w-[400px] xl:w-fit mr-5 xl:p-3 2xl:p-6 gap-5 h-fit xl:min-h-[150px] bg-white xl:flex-1 rounded-lg">
-            <img src={logo} alt="logo" className="w-auto xl:flex-1 rounded-lg" />
+          {/* STATS LEGEND */}
+          <div className="bg-white rounded-2xl p-3 flex items-center gap-4 shadow-sm w-full sm:w-fit">
+
+            <img
+              src={logo}
+              alt="logo"
+              className="h-10 sm:h-12 object-contain"
+            />
+
+            <span className="w-[2px] bg-black self-stretch"></span>
+
+            <div className="flex flex-col gap-2 text-sm">
+
+              <p className="flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-[#3D3E3E]"></span>
+                <span>Total Borrowed Books</span>
+              </p>
+
+              <p className="flex items-center gap-3">
+                <span className="w-3 h-3 rounded-full bg-[#151619]"></span>
+                <span>Total Returned Books</span>
+              </p>
+
+            </div>
+
           </div>
+
         </div>
 
-        {/* Right Side */}
+        {/* RIGHT SIDE */}
+        <div className="flex-[3] flex flex-col gap-3">
 
+          {/* TOP SECTION */}
+          <div className="flex flex-col lg:flex-row gap-3">
+
+            {/* CARDS */}
+            <div className="flex flex-col gap-3 flex-1">
+
+              {/* USERS */}
+              <div className="bg-white rounded-2xl p-3 flex items-center gap-4 shadow-sm min-h-[80px]">
+
+                <span className="bg-gray-200 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                  <img
+                    src={usersIcon}
+                    alt="users-icon"
+                    className="w-6 h-6 object-contain"
+                  />
+                </span>
+
+                <span className="w-[2px] bg-black self-stretch"></span>
+
+                <div>
+                  <h3 className="text-xl font-bold">
+                    {totalUsers.length}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm">
+                    Total User Base
+                  </p>
+                </div>
+
+              </div>
+
+              {/* BOOKS */}
+              <div className="bg-white rounded-2xl p-3 flex items-center gap-4 shadow-sm min-h-[80px]">
+
+                <span className="bg-gray-200 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                  <img
+                    src={bookIcon}
+                    alt="book-icon"
+                    className="w-6 h-6 object-contain"
+                  />
+                </span>
+
+                <span className="w-[2px] bg-black self-stretch"></span>
+
+                <div>
+                  <h3 className="text-xl font-bold">
+                    {totalBooks}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm">
+                    Total Book Count
+                  </p>
+                </div>
+
+              </div>
+
+              {/* ADMINS */}
+              <div className="bg-white rounded-2xl p-3 flex items-center gap-4 shadow-sm min-h-[80px]">
+
+                <span className="bg-gray-200 w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
+                  <img
+                    src={adminIcon}
+                    alt="admin-icon"
+                    className="w-6 h-6 object-contain"
+                  />
+                </span>
+
+                <span className="w-[2px] bg-black self-stretch"></span>
+
+                <div>
+                  <h3 className="text-xl font-bold">
+                    {totalAdmin.length}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm">
+                    Total Admin Count
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* PROFILE CARD */}
+            <div className="bg-white rounded-2xl p-4 shadow-sm flex flex-col justify-center items-center text-center flex-1 min-h-[260px]">
+
+              <img
+                src={user?.avatar?.url}
+                alt="admin-avatar"
+                className="w-20 h-20 rounded-full object-cover mb-3"
+              />
+
+              <h2 className="text-lg sm:text-xl font-semibold">
+                {user?.name}
+              </h2>
+
+              <p className="text-gray-500 mt-2 max-w-[300px] text-sm leading-relaxed">
+                Welcome to your admin dashboard. Here you can manage all the settings and monitor the statistics.
+              </p>
+
+            </div>
+
+          </div>
+
+          {/* QUOTE SECTION */}
+          <div className="bg-white rounded-2xl p-5 shadow-sm flex flex-col justify-between min-h-[180px] overflow-hidden">
+
+            <h2 className="text-lg sm:text-xl xl:text-3xl font-semibold leading-snug max-w-[800px]">
+              "Embarking on the journey of reading fosters personal growth, nurturing a path towards excellence and the refinement of character."
+            </h2>
+
+            <p className="text-right text-gray-700 text-sm sm:text-base mt-4">
+              ~ BookWorm Team
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
+
     </main>
-  </>;
+  </>
+);
 };
 
 export default AdminDashboard;
