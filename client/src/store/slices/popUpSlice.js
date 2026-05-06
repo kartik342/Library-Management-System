@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const popupSlice = createSlice({
+const popUpSlice = createSlice({
     name: "popup",
     initialState: {
         settingPopup: false,
@@ -42,6 +42,6 @@ const popupSlice = createSlice({
 
 });
 
-export const { toggleSettingPopup, toggleAddBookPopup, toggleReadBookPopup, toggleRecordBookPopup, toggleReturnBookPopup, toggleAddNewAdminPopup, closeAllPopup } = popupSlice.actions;
+export const { toggleSettingPopup, toggleAddBookPopup, toggleReadBookPopup, toggleRecordBookPopup, toggleReturnBookPopup, toggleAddNewAdminPopup, closeAllPopup } = popUpSlice.actions;
 
-export default popupSlice.reducer;
+export default popUpSlice.reducer;

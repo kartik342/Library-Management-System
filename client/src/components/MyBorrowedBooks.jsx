@@ -105,7 +105,7 @@ const MyBorrowedBooks = () => {
                     <td className="py-2 px-4 text-left">{formatDate(book.dueDate)}</td>
                     <td className="py-2 px-4 text-left">{book.returned ? "Yes" : "No"}</td>
                     <td className="py-2 px-4 text-left">
-                      <BookA onClick={()=> openReadPopup(book.bookId)}/>
+                      <BookA onClick={()=> openReadPopup(book.bookId)} className="hover:cursor-pointer"/>
                     </td>
                   </tr>
                 ))
@@ -122,7 +122,7 @@ const MyBorrowedBooks = () => {
     }
   </main>
 
-  {readBookPopup && <ReadBookPopup book={readBook}/>}
+  {readBookPopup && <ReadBookPopup book={readBookData}/>}
   
   </>;
 };

@@ -138,8 +138,8 @@ const BookManagement = () => {
                   searchedBooks.map((book, index)=>(
                     <tr 
                       key={book._id} 
-                      className={(index+1) %2 === 0 ? "bg-gray-500" : "bg-white"} 
-                      onClick={() => openReadPopup(book._id)}
+                      className={(index+1) %2 === 0 ? "bg-gray-200" : "bg-white"} 
+                      // onClick={() => openReadPopup(book._id)}
                     >
                       <td className="px-4 py-2">{index+1}</td>
                       <td className="px-4 py-2">{book.title}</td>
@@ -180,7 +180,7 @@ const BookManagement = () => {
     </main>
 
     {addBookPopup && <AddBookPopup/>}
-    {readBookPopup && <ReadBookPopup book={readBook}/>}
+    {readBookPopup && <ReadBookPopup book={readBookData}/>}
     {recordBookPopup && <RecordBookPopup bookId={borrowBookId}/>}
   </>;
 };

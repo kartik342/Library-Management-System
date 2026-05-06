@@ -4,16 +4,15 @@ import { Book } from "../models/bookModel.js";
 import { User } from "../models/userModel.js";
 
 export const addBook = catchAsyncErrors(async(req, res, next)=>{
-    const {title, author, description, price, quantity} = req.body || {}
+    const {title, author, description, quantity} = req.body || {}
 
-    if(!title || !author || !description || !price || !quantity){
+    if(!title || !author || !description || !quantity){
         return next(new ErrorHandler("Please enter all fields", 400))
     }  
     const book = await Book.create({
         title,
         author,
         description,
-        price,
         quantity,
     })
     res.status(201).json({

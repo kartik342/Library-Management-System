@@ -1,5 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
+import { toggleAddBookPopup } from "./popUpSlice";
+import { toast } from "react-toastify";
 
 const bookSlice = createSlice({
     name: "books",
@@ -52,7 +54,7 @@ const bookSlice = createSlice({
 export const fetchAllBooks = () => async (dispatch) => {
     dispatch(bookSlice.actions.fetchBooksRequest());
 
-    await axios.get("http://localhost:4000/api/v1/book/all", {withcredentials: true})
+    await axios.get("http://localhost:4000/api/v1/book/all", {withCredentials: true})
     .then((res ) => {
         dispatch(bookSlice.actions.fetchBooksSuccess(res.data.books));
     })
@@ -65,12 +67,14 @@ export const addBook = (data) => async (dispatch) => {
     dispatch(bookSlice.actions.addBookRequest());
 
     await axios.post("http://localhost:4000/api/v1/book/admin/add", data, {
-        withcredentials: true,
+        withCredentials: true,
         headers: {
             "Content-Type": "application/json",
         },
     }).then((res) => {
         dispatch(bookSlice.actions.addBookSuccess(res.data.message));
+        // toast.success(res.data.message);
+        dispatch(toggleAddBookPopup());
     }).catch((err) => {
         dispatch(bookSlice.actions.addBookFailed(err.response.data.message));
     })

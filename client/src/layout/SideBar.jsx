@@ -11,7 +11,7 @@ import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify"
 import { logout, resetAuthSlice } from "../store/slices/authSlice";
-import { toggleAddNewAdminPopup, toggleSettingPopup } from "../store/slices/popupSlice";
+import { toggleAddNewAdminPopup, toggleSettingPopup } from "../store/slices/popUpSlice";
 import AddNewAdmin from "../popups/AddNewAdmin";
 import SettingPopup from "../popups/SettingPopup";
 
