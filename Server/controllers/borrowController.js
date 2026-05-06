@@ -124,9 +124,7 @@ export const returnBorrowedBook = catchAsyncErrors(async(req, res, next)=>{
 
     res.status(200).json({
         success: true,
-        message: fine > 0 
-        ? `The book has been returned successfully. The total charges, including a fine, are $${fine + book.price} ` 
-        : `The book has been returned successfully. The total charges are $${book.price} `,
+        message: "The book has been returned successfully",
     })
 })
 

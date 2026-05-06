@@ -6,6 +6,9 @@ import { useState } from "react";
 import { toggleReturnBookPopup } from "../store/slices/popUpSlice";
 import { fetchAllBorrowedBooks, resetBorrowSlice } from "../store/slices/borrowSlice";
 import { fetchAllBooks, resetBookSlice } from "../store/slices/bookSlice";
+import { toast } from "react-toastify";
+import Header from "../layout/Header";
+import ReturnBookPopup from "../popups/ReturnBookPopup";
 
 const Catalog = () => {
 
@@ -77,28 +80,28 @@ const Catalog = () => {
         <Header/>
     
         {/* Sub Header */}
-        <header className="flex flex-col gap-3 md:flex-row md:justify-between md:items-center ">
+        {/* <header className="flex flex-col gap-3 md:flex-row md:justify-between md:items-center ">
           <h2 className="text-xl font-medium md:text-2xl md:font-semibold ">My Borrowed Books</h2>
-        </header>
+        </header> */}
     
         <header className="flex flex-row gap-3 sm:flex-row md:items-center">
     
           <button className={`relative rounded sm:rounded-tr-none sm:rounded-br-none sm:rounded-tl-lg sm:rounded-bl-lg text-center border-2 font-semibold py-2 w-full sm:w-72 ${
-            filter === "returned" 
+            filter === "borrowed" 
             ? "bg-black text-white border-black " 
             : "bg-gray-200 text-black border-gray-200 hover:bg-gray-300"
             }`} 
-            onClick={() => setFilter("returned")}>
-            Returned Books
+            onClick={() => setFilter("borrowed")}>
+            Borrowed Books
           </button>
     
           <button className={`relative rounded sm:rounded-tl-none sm:rounded-bl-none sm:rounded-tr-lg sm:rounded-br-lg text-center border-2 font-semibold py-2 w-full sm:w-72 ${
-            filter === "nonReturned" 
+            filter === "overdue" 
             ? "bg-black text-white border-black " 
             : "bg-gray-200 text-black border-gray-200 hover:bg-gray-300"
             }`} 
-            onClick={() => setFilter("nonReturned")}>
-            Not Returned Books
+            onClick={() => setFilter("overdue")}>
+            Overdue Borrowers
           </button>
         </header>
     
@@ -111,11 +114,11 @@ const Catalog = () => {
                 <thead>
                   <tr className="bg-gray-200">
                     <th className="py-2 px-4 text-left">ID</th>
-                    <th className="py-2 px-4 text-left">Book Title</th>
-                    <th className="py-2 px-4 text-left">Date & Time</th>
+                    <th className="py-2 px-4 text-left">Username</th>
+                    <th className="py-2 px-4 text-left">Email</th>
                     <th className="py-2 px-4 text-left">Due Date</th>
-                    <th className="py-2 px-4 text-left">Returned</th>
-                    <th className="py-2 px-4 text-left">View</th>
+                    <th className="py-2 px-4 text-left">Date & Time</th>
+                    <th className="py-2 px-4 text-left">Return</th>
                   </tr>
                 </thead>
     
@@ -124,12 +127,21 @@ const Catalog = () => {
                     booksToDisplay.map((book, index) => (
                       <tr key={book._id} className={(index+1)%2 === 0 ? "bg-gray-50" : ""}> 
                         <td className="py-2 px-4 text-left">{index+1}</td>
-                        <td className="py-2 px-4 text-left">{book.bookTitle}</td>
-                        <td className="py-2 px-4 text-left">{formatDate(book.borrowedDate)}</td> 
+                        <td className="py-2 px-4 text-left">{book?.user.name}</td>
+                        <td className="py-2 px-4 text-left">{book?.user.email}</td> 
                         <td className="py-2 px-4 text-left">{formatDate(book.dueDate)}</td>
-                        <td className="py-2 px-4 text-left">{book.returned ? "Yes" : "No"}</td>
+                        <td className="py-2 px-4 text-left">{formatDateAndTime(book.createdAt)}</td>
                         <td className="py-2 px-4 text-left">
-                          <BookA onClick={()=> openReadPopup(book.bookId)} className="hover:cursor-pointer"/>
+                          {
+                            book.returnDate ? (
+                              <FaSquareCheck className="w-6 h-6"/>
+                            ) : (
+                              <PiKeyReturnBold 
+                                onClick={()=> openReturnBookPopup(book.book, book?.user.email)} 
+                                className="w-6 h-6"
+                              />
+                            )
+                          }
                         </td>
                       </tr>
                     ))
@@ -138,15 +150,13 @@ const Catalog = () => {
     
               </table>
             </div>
-          ) : filter === "returned" ? (
-            <h3 className="text-3xl mt-5 font-medium">No returned books found!</h3>
           ) : (
-            <h3 className="text-3xl mt-5 font-medium">No non-returned books found!</h3>
+            <h3 className="text-3xl mt-5 font-medium">No {filter === "borrowed" ? "borrowed" : "overdue"} books found!</h3>
           )
         }
     </main>
     
-    {readBookPopup && <ReadBookPopup book={readBookData}/>}
+    {returnBookPopup && <ReturnBookPopup bookId={borrowedBookId} email={email}/>}
   
   </>;
 };
