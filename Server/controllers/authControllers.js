@@ -106,12 +106,21 @@ export const login = catchAsyncErrors(async(req, res, next)=>{
         return next(new ErrorHandler("Please enter all fields", 400))
     }
 
+    // console.log("EMAIL:", email);
+    // console.log("PASSWORD:", password);
+
     const user = await User.findOne({email, accountVerified: true}).select("+password") // only verified user can login
     if(!user){
         return next(new ErrorHandler("Invalid email or password", 400))
     }
+
+    // console.log("USER FOUND:", user);
     
     const isPasswordMatched = await bcrypt.compare(password, user.password)
+    // console.log("ENTERED:", password);
+    // console.log("HASHED:", user.password);
+    // console.log("PASSWORD MATCH:", isPasswordMatched);
+
     if(!isPasswordMatched){
         return next(new ErrorHandler("Invalid email or password", 400))
     }

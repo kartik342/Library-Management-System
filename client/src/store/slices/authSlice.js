@@ -188,7 +188,7 @@ export const login = (data) => async (dispatch) => {
     }).then(res => {
         dispatch(authSlice.actions.loginSuccess( res.data ));
     }).catch(error => {
-        dispatch(authSlice.actions.loginFailed( error.response.data.error ));
+        dispatch(authSlice.actions.loginFailed( error.response.data.message ));
     });
 };
 
@@ -216,7 +216,7 @@ export const getUser = () => async (dispatch) => {
         dispatch(authSlice.actions.getUserSuccess( res.data ));
     })
     .catch(error => {
-        dispatch(authSlice.actions.getUserFailed(error.response.data.message));
+        dispatch(authSlice.actions.getUserFailed(error?.response?.data?.message));
     });
 };
 
