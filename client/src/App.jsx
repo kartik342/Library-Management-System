@@ -11,6 +11,8 @@ import { getUser } from "./store/slices/authSlice";
 import { fetchAllUsers } from "./store/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { fetchAllBooks } from "./store/slices/bookSlice";
+import { fetchUserBorrowedBooks } from "./store/slices/borrowSlice";
 
 
 const App = () => {
@@ -22,11 +24,15 @@ const App = () => {
   // 1. Load user once
 useEffect(() => {
   dispatch(getUser());
+  dispatch(fetchAllBooks());
 }, [dispatch]);
 
 // 2. Fetch users AFTER user is ready
 useEffect(() => {
-  if (user?.role === "Admin") {
+  if (isAuthenticated && user?.role === "User") {
+    dispatch(fetchUserBorrowedBooks());
+  }
+  if (isAuthenticated && user?.role === "Admin") {
     dispatch(fetchAllUsers());
   }
 }, [user?.role, dispatch]); // when the app component mounts, it dispatches the getUser action to fetch the current user's information. If the user is authenticated and has the role of "Admin", it also dispatches the fetchAllUsers action to retrieve a list of all users for the admin dashboard.

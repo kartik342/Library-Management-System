@@ -2,7 +2,7 @@ import React from "react";
 import placeHolder from "../assets/placeholder.jpg";
 import closeIcon from "../assets/close-square.png";
 import keyIcon from "../assets/key.png";
-import { toggleAddNewAdminPopup } from "../store/slices/popupSlice";
+import { toggleAddNewAdminPopup } from "../store/slices/popUpSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { addNewAdmin } from "../store/slices/userSlice";

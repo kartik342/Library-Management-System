@@ -8,6 +8,7 @@ import AdminDashboard from "../components/AdminDashboard";
 import BookManagement from "../components/BookManagement";
 import Catalog from "../components/Catalog";
 import Users from "../components/Users";
+import MyBorrowedBooks from "../components/MyBorrowedBooks";
 
 
 
