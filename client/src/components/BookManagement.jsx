@@ -94,7 +94,7 @@ const BookManagement = () => {
               className="relative pl-12 w-full sm:w-44 flex justify-center items-center py-2.5 px-4 bg-black text-white rounded-xl hover:bg-gray-800 transition duration-300 shadow-sm"
             >
 
-              <span className="bg-white flex justify-center items-center rounded-full text-black w-5 h-5 text-lg absolute left-4">
+              <span className="bg-white flex justify-center items-center rounded-full text-black w-6 h-6 text-sm font-bold absolute left-4">
                 +
               </span>
 
