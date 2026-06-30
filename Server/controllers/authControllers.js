@@ -7,11 +7,18 @@ import { sendVerificationCode } from "../utils/sendVerificationCode.js"
 import { sendToken } from "../utils/sendToken.js"
 import { sendEmail } from "../utils/sendEmail.js"
 import { generateForgotPasswordEmailTemplate } from "../utils/emailTemplate.js"
+import validator from "validator";
 // import { send } from "process"
 
 export const register = catchAsyncErrors(async(req, res, next)=>{
     try{
+
+        console.log("Register controller called");
         const {name, email, password} = req.body
+
+        console.log(req.body);
+        console.log("Email:", req.body.email);
+        
 
         if(!name || !email || !password){ // if any filed is empty
             return next(new ErrorHandler("Please enter all fields", 400))
@@ -29,6 +36,13 @@ export const register = catchAsyncErrors(async(req, res, next)=>{
             return next(new ErrorHandler("You have exceeded number of registration attempts. Please contact support", 400))
         }
 
+        console.log("Email:", email);
+        console.log("isEmail:", validator.isEmail(email));
+
+        if (!validator.isEmail(email)) {
+            return next(new ErrorHandler("Please enter a valid email address.", 400));
+        }
+
         // now registering the user
         if(password.length < 8 || password.length > 16){
             return next(new ErrorHandler("Password must be between 8 to 16 characters",400))
@@ -39,8 +53,13 @@ export const register = catchAsyncErrors(async(req, res, next)=>{
             email,
             password: hashedPassword,
         })
+        console.log("User created")
         const verificationCode = user.generateVerificationCode()
+
+        console.log("Verification code generated")
         await user.save()
+
+        console.log("User saved")
         sendVerificationCode(verificationCode, email, res)
 
     }

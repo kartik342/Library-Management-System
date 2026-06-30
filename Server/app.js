@@ -35,6 +35,10 @@ app.use(expressFileUpload({
 }))
 
 // console.log("Auth router:", authRouter);
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.originalUrl}`);
+    next();
+});
 app.use("/api/v1/auth", authRouter) // https://localhost:4000/api/v1/auth AND later =>  https://localhost:4000/api/v1/auth
 app.use("/api/v1/book", bookRouter) // https://localhost:4000/api/v1/book
 app.use("/api/v1/borrow", borrowRouter) // https://localhost:4000/api/v1/borrow

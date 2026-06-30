@@ -83,8 +83,8 @@ export const authSlice = createSlice({
         },
         getUserSuccess: (state, action) => {
             state.loading = false;
-            state.user = action.payload.user;
-            state.isAuthenticated = true;
+            state.user = action.payload?.user ?? null;
+            state.isAuthenticated = Boolean(action.payload?.success && action.payload?.user);
         },
         getUserFailed: (state) => {
             state.loading = false;
@@ -160,7 +160,7 @@ export const register = (data) => async (dispatch) => {
     }).then(res => {
         dispatch(authSlice.actions.registerSuccess( res.data ));
     }).catch(error => {
-        dispatch(authSlice.actions.registerFailed( error.response.data.error ));
+        dispatch(authSlice.actions.registerFailed( error.response.data.message ));
     });
 };
 
@@ -213,7 +213,11 @@ export const getUser = () => async (dispatch) => {
         withCredentials: true,
     })
     .then(res => {
-        dispatch(authSlice.actions.getUserSuccess( res.data ));
+        if (res?.data?.success && res?.data?.user) {
+            dispatch(authSlice.actions.getUserSuccess(res.data));
+        } else {
+            dispatch(authSlice.actions.getUserFailed());
+        }
     })
     .catch(error => {
         dispatch(authSlice.actions.getUserFailed(error?.response?.data?.message));

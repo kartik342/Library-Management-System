@@ -22,10 +22,10 @@ const App = () => {
   const dispatch = useDispatch();
 
   // 1. Load user once
-useEffect(() => {
-  dispatch(getUser());
-  dispatch(fetchAllBooks());
-}, [dispatch]);
+  useEffect(() => {
+    dispatch(getUser());
+    dispatch(fetchAllBooks());
+  }, [dispatch]);
 
 // 2. Fetch users AFTER user is ready
 useEffect(() => {

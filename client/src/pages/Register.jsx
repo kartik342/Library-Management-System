@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { register, resetAuthSlice } from "../store/slices/authSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -28,14 +29,29 @@ const Register = () => {
       toast.error("Please enter all fields");
       return;
     }
-
+  
+    // console.log("name:", name);
+    // console.log("email:", email);
+    // console.log("password:", password);
+    
     const data = new FormData();
     data.append("name", name);
     data.append("email", email);
     data.append("password", password);
 
+    
+
     dispatch(register(data));
   }
+
+//   useEffect(() => {
+//   console.log(error);
+
+//   if (error) {
+//     toast.error(error);
+//     dispatch(resetAuthSlice());
+//   }
+// }, [error]);
 
   useEffect(()=>{
     if(message) {
@@ -47,7 +63,7 @@ const Register = () => {
       toast.error(error);
       dispatch(resetAuthSlice());
     }
-  }, [loading, error, isAuthenticated, dispatch]);
+  }, [loading, error, message, email, isAuthenticated, dispatch]);
 
   if(isAuthenticated) {
     return <Navigate to={"/"}/>;
