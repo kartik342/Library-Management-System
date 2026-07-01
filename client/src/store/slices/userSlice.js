@@ -35,7 +35,7 @@ const userSlice = createSlice({
 export const fetchAllUsers = () => async (dispatch) => {
     dispatch(userSlice.actions.fetchAllUsersRequest());
     
-    await axios.get("http://localhost:4000/api/v1/user/all", { withCredentials: true })
+    await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/all`, { withCredentials: true })
     .then((response) => {
         dispatch(userSlice.actions.fetchAllUsersSuccess(response.data.users));
     })
@@ -47,7 +47,7 @@ export const fetchAllUsers = () => async (dispatch) => {
 export const addNewAdmin = (data) => async (dispatch) => {
     dispatch(userSlice.actions.addNewAdminRequest());
     
-    await axios.post("http://localhost:4000/api/v1/user/add/new-admin", data, { 
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/add/new-admin`, data, { 
         withCredentials: true,
         headers: {
             "Content-Type": "multipart/form-data",
@@ -56,7 +56,7 @@ export const addNewAdmin = (data) => async (dispatch) => {
     .then((response) => {
         dispatch(userSlice.actions.addNewAdminSuccess());
         toast.success(response.data.message);
-        dipatch(toggleAddNewAdminPopup());
+        dispatch(toggleAddNewAdminPopup());
     })
     .catch((error) => {
         dispatch(userSlice.actions.addNewAdminFailed());
