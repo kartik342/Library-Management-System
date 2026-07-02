@@ -44,8 +44,8 @@ export const register = catchAsyncErrors(async(req, res, next)=>{
         }
 
         // now registering the user
-        if(password.length < 8 || password.length > 16){
-            return next(new ErrorHandler("Password must be between 8 to 16 characters",400))
+        if(password.length < 6 || password.length > 16){
+            return next(new ErrorHandler("Password must be between 6 to 16 characters",400))
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = await User.create({
@@ -233,8 +233,8 @@ export const resetPassword = catchAsyncErrors(async(req, res, next)=>{
     if(!req.body.password){
         return next(new ErrorHandler("Password is required", 400))
     }
-    if(req.body.password.length < 8 || req.body.password.length > 16){
-        return next(new ErrorHandler("Password must be between 8 to 16 characters",400))
+    if(req.body.password.length < 6 || req.body.password.length > 16){
+        return next(new ErrorHandler("Password must be between 6 to 16 characters",400))
     }
     if(req.body.password !== req.body.confirmPassword){
         return next(new ErrorHandler("Password and confirm password do not match", 400))
@@ -266,8 +266,8 @@ export const updatePassword = catchAsyncErrors(async(req, res, next)=>{
         return next(new ErrorHandler("Current password is incorrect", 400))
     }
 
-    if(newPassword.length < 8 || newPassword.length > 16){
-        return next(new ErrorHandler("New password must be between 8 to 16 characters",400))
+    if(newPassword.length < 6 || newPassword.length > 16){
+        return next(new ErrorHandler("New password must be between 6 to 16 characters",400))
     }
     if(newPassword !== confirmNewPassword){
         return next(new ErrorHandler("New password and confirm new password do not match", 400))
