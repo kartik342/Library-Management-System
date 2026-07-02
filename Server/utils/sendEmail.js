@@ -1,7 +1,7 @@
 import nodeMailer from "nodemailer";
 
 export const sendEmail = async ({ email, subject, message }) => {
-    const transporter = nodeMailer.createTransport({
+    const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
         secure: false,
@@ -10,7 +10,9 @@ export const sendEmail = async ({ email, subject, message }) => {
             user: process.env.SMTP_MAIL,
             pass: process.env.SMTP_PASSWORD,
         },
-        connectionTimeout: 30000,
+        connectionTimeout: 60000,
+        greetingTimeout: 60000,
+        socketTimeout: 60000,
     });
 
     // await transporter.verify();
