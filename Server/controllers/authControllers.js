@@ -60,11 +60,15 @@ export const register = catchAsyncErrors(async(req, res, next)=>{
         await user.save()
 
         console.log("User saved")
-        sendVerificationCode(verificationCode, email, res)
-
+        await sendVerificationCode(verificationCode, email, res)
+        console.log("Verification email sent");
     }
     catch(error){
-        next(error) 
+        console.error("Register Error:");
+        console.error(error);
+        console.error(error.stack);
+
+        next(error);
     }
 })
 

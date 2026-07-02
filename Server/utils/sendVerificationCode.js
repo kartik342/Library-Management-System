@@ -16,9 +16,13 @@ export async function sendVerificationCode(verificationCode, email, res){
         })
     } 
     catch (error) {
+        console.error("Email sending failed:");
+        console.error(error);
+        console.error(error.stack);
+
         return res.status(500).json({
             success: false,
             message: "Verification code failed to send"
-        })
+        });
     }
 }
