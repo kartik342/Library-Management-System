@@ -1,32 +1,27 @@
-import nodeMailer from "nodemailer"
+import nodeMailer from "nodemailer";
 
-export const sendEmail = async({email, subject, message})=>{
-    console.log({
-        host: process.env.SMTP_HOST,
-        service: process.env.SMTP_SERVICE,
-        port: process.env.SMTP_PORT,
-        user: process.env.SMTP_MAIL,
-        passExists: !!process.env.SMTP_PASSWORD,
-    });
+export const sendEmail = async ({ email, subject, message }) => {
     const transporter = nodeMailer.createTransport({
-        host: process.env.SMTP_HOST,
-        service: process.env.SMTP_SERVICE,
-        port: process.env.SMTP_PORT,
-        auth: { // for authentication of your email
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
             user: process.env.SMTP_MAIL,
             pass: process.env.SMTP_PASSWORD,
-        }
-    })
-    const mailOptions = {
+        },
+        connectionTimeout: 30000,
+    });
+
+    await transporter.verify();
+    console.log("SMTP Connected Successfully");
+
+    await transporter.sendMail({
         from: process.env.SMTP_MAIL,
         to: email,
         subject,
-        html: message, // user text: message (if your mail is in string )
-    }
+        html: message,
+    });
 
-    console.log("Connecting to SMTP...");
-    await transporter.verify();
-    console.log("SMTP connected successfully");
-
-    await transporter.sendMail(mailOptions)
-}
+    console.log("Email Sent Successfully");
+};
