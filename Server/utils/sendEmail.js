@@ -13,7 +13,7 @@ export const sendEmail = async ({ email, subject, message }) => {
         connectionTimeout: 30000,
     });
 
-    await transporter.verify();
+    // await transporter.verify();
     console.log("SMTP Connected Successfully");
 
     await transporter.sendMail({
