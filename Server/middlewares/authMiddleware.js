@@ -10,10 +10,9 @@ export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   console.log("Token:", token);
 
   if (!token) {
-    console.log("No token received");
-    return res.status(200).json({
+    return res.status(401).json({
       success: false,
-      user: null,
+      message: "Unauthorized",
     });
   }
 

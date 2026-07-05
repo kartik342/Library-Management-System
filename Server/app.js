@@ -29,7 +29,6 @@ app.use(cors({
     credentials: true
 }))
 
-console.log(process.env.FRONTEND_URL);
 app.use(express.urlencoded({extended: true}))
 app.use(expressFileUpload({
     useTempFiles: true,
