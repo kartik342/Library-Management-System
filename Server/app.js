@@ -28,6 +28,8 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
+
+console.log(process.env.FRONTEND_URL);
 app.use(express.urlencoded({extended: true}))
 app.use(expressFileUpload({
     useTempFiles: true,
