@@ -4,9 +4,13 @@ import jwt from "jsonwebtoken"
 import { User } from "../models/userModel.js";
 
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
+  console.log("Cookies:", req.cookies);
+
   const { token } = req.cookies;
+  console.log("Token:", token);
 
   if (!token) {
+    console.log("No token received");
     return res.status(200).json({
       success: false,
       user: null,
@@ -14,9 +18,10 @@ export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(decoded);
+  console.log("Decoded:", decoded);
 
   req.user = await User.findById(decoded.id);
+  console.log("User:", req.user);
 
   next();
 });
