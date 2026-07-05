@@ -213,6 +213,7 @@ export const getUser = () => async (dispatch) => {
         withCredentials: true,
     })
     .then(res => {
+        console.log("GET USER RESPONSE:", res.data);
         if (res?.data?.success && res?.data?.user) {
             dispatch(authSlice.actions.getUserSuccess(res.data));
         } else {
@@ -220,6 +221,9 @@ export const getUser = () => async (dispatch) => {
         }
     })
     .catch(error => {
+        console.log("GET USER ERROR:", error.response?.status);
+        console.log("GET USER ERROR DATA:", error.response?.data);
+        console.log("GET USER MESSAGE:", error.message);
         dispatch(authSlice.actions.getUserFailed(error?.response?.data?.message));
     });
 };
