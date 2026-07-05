@@ -1,4 +1,5 @@
 import React from "react";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -21,8 +22,14 @@ const App = () => {
 
   const { isCheckingAuth } = useSelector((state) => state.auth);
 
+  const { isCheckingAuth } = useSelector((state) => state.auth);
+
   if (isCheckingAuth) {
-      return <LoadingScreen />;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <img src={logo} alt="Loading" className="w-28 animate-pulse" />
+      </div>
+    );
   }
 
   const dispatch = useDispatch();
