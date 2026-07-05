@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import OTP from "./pages/OTP";
 import ResetPassword from "./pages/ResetPassword";
+import logo from "./assets/black-logo.png";
 import { ToastContainer } from "react-toastify";
 import { getUser } from "./store/slices/authSlice";
 import { fetchAllUsers } from "./store/slices/userSlice";
