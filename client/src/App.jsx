@@ -22,8 +22,6 @@ const App = () => {
 
   const { isCheckingAuth } = useSelector((state) => state.auth);
 
-  const { isCheckingAuth } = useSelector((state) => state.auth);
-
   if (isCheckingAuth) {
     return (
       <div className="min-h-screen flex items-center justify-center">
