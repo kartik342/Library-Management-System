@@ -23,14 +23,6 @@ const App = () => {
 
   const { isCheckingAuth } = useSelector((state) => state.auth);
 
-  if (isCheckingAuth) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <img src={logo} alt="Loading" className="w-28 animate-pulse" />
-      </div>
-    );
-  }
-
   const dispatch = useDispatch();
 
   // 1. Load user once
