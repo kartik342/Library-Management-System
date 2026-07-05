@@ -2,6 +2,7 @@ export const sendToken = (user, statusCode, message, res)=>{
     const token = user.generateToken() // generate token using the method defined in the User model
 
     // send token in cookie and also send user data and token in response
+    console.log("NODE_ENV:", process.env.NODE_ENV);
     res.status(statusCode).cookie("token", token, {
         expires: new Date(
             Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000

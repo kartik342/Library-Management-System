@@ -21,7 +21,7 @@ const borrowSlice = createSlice({
         },
         fetchUserBorrowedBooksSuccess: (state, action) => {
             state.loading = false;
-            state.userBorrowedBooks = action.payload;
+            state.userBorrowedBooks = action.payload || [];
         },
         fetchUserBorrowedBooksFailed: (state, action) => {
             state.loading = false;
