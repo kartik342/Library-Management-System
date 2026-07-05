@@ -11,6 +11,7 @@ export const authSlice = createSlice({
         error: null, 
         message: null,
         isAuthenticated: false,
+        isCheckingAuth: true,
     },
     reducers: {
         registerRequest: (state) => {
@@ -80,14 +81,17 @@ export const authSlice = createSlice({
             state.loading = true;
             state.error = null;
             state.message = null;
+            state.isCheckingAuth = true;
         },
         getUserSuccess: (state, action) => {
             state.loading = false;
+            state.isCheckingAuth = false;
             state.user = action.payload?.user ?? null;
             state.isAuthenticated = Boolean(action.payload?.success && action.payload?.user);
         },
         getUserFailed: (state) => {
             state.loading = false;
+            state.isCheckingAuth = false;
             state.user = null;
             state.isAuthenticated = false;
         },

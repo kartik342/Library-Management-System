@@ -19,6 +19,12 @@ const App = () => {
 
   const {user, isAuthenticated} = useSelector((state) => state.auth);
 
+  const { isCheckingAuth } = useSelector((state) => state.auth);
+
+  if (isCheckingAuth) {
+      return <LoadingScreen />;
+  }
+
   const dispatch = useDispatch();
 
   // 1. Load user once
